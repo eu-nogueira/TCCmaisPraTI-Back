@@ -29,7 +29,7 @@ public class UsuarioService {
     public Usuario econtrarPeloNomeUsuario(String nomeUsuario){
         // Usa o repositório para buscar o usuário pelo nome de usuário.
         // Retorna um Optional contendo o usuário, ou null se não encontrado.
-        return usuarioRepository.findByUsername(nomeUsuario).orElse(null);
+        return usuarioRepository.findByNomeUsuario(nomeUsuario).orElse(null);
 
     }
 

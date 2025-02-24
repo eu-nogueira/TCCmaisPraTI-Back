@@ -17,7 +17,7 @@ public class CadastroController {
     private UsuarioService usuarioService;
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @PostMapping("/registro")
+    @PostMapping
     public ResponseEntity<String> registroUsuario(@RequestBody Usuario usuario){
         if(usuarioService.econtrarPeloNomeUsuario(usuario.getNomeUsuario()) != null){
             return ResponseEntity.badRequest().body("Erro! nome do " +

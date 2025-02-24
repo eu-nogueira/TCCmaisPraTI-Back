@@ -11,8 +11,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_usuario;
     private String nomeUsuario;
-    private String cpf;
-    private LocalDate dataNascimento;
     private String email;
     private String senha;
 
@@ -30,22 +28,6 @@ public class Usuario {
 
     public void setNomeUsuario(String nomeUsuario) {
         this.nomeUsuario = nomeUsuario;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public String getEmail() {
