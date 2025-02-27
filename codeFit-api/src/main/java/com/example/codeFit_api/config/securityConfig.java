@@ -2,6 +2,10 @@ package com.example.codeFit_api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +28,7 @@ public class securityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/cadastro").permitAll() //
                         // Permite acesso irrestrito às rotas que começam com "/auth/" (exemplo: login, registro).
+                        .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/api/protected").hasAuthority("ROLE_USER") // Restringe o acesso a "/api/protected" apenas para usuários com a role "ROLE_USER".
                         .anyRequest().authenticated() // Exige autenticação para qualquer outra requisição não especificada acima.
                 )
@@ -41,5 +46,20 @@ public class securityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // Cria uma nova instância para mapear as configurações de CORS com base em URLs
         source.registerCorsConfiguration("/**", configuration); // Registra as configurações de CORS para todas as rotas da aplicação
         return source; // Retorna a fonte de configuração CORS
+    }
+
+    // DEFINE COMO VAMOS AUTENTICAR UM USUÁRIO
+    @Bean
+    public AuthenticationManager authenticationManager(
+            UserDetailsService userDetailsService, // Serviço para carregar os detalhes do usuário do banco de dados.
+            PasswordEncoder passwordEncoder // Codificador de senha utilizado para validar senhas no login.
+    ) throws Exception {
+        // Cria um provedor de autenticação que utiliza um banco de dados para validar usuários.
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService); // Define o serviço que carrega os detalhes do usuário.
+        provider.setPasswordEncoder(passwordEncoder); // Define o codificador de senha (Argon2 no caso).
+
+        // Retorna um AuthenticationManager que utiliza o provedor de autenticação configurado.
+        return new ProviderManager(provider);
     }
 }
