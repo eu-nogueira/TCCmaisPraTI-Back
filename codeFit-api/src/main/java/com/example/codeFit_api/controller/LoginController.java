@@ -32,9 +32,9 @@ public class LoginController {
         try{
             // Exibe no console os dados do usuário que está tentando se autenticar (usado para depuração).
             System.out.println("Tentando autenticar: " + usuario.getNomeUsuario());
-            System.out.println("Senha fornecida: " + usuario.getNomeUsuario());
+            System.out.println("Senha fornecida: " + usuario.getSenha());
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(usuario.getNomeUsuario(), usuario.getNomeUsuario())
+                    new UsernamePasswordAuthenticationToken(usuario.getNomeUsuario(), usuario.getSenha())
             );
 
             // Exibe no console que o usuário foi autenticado com sucesso.

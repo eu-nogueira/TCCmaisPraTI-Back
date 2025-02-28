@@ -1,4 +1,4 @@
-package com.example.jwt_auth.model;
+package com.example.codeFit_api.model;
 // porque criamos essa classe? o spring exige um objeto que implemente userDatails para que a gente possa autenticar
 // e autorizar um usuário
 
@@ -9,13 +9,13 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails { // userDeatails a gente tem objetos especificos para trabalhar com autenticação e autorização
-    private final String username;
-    private final String password;
+    private final String nomeUsuario;
+    private final String senha;
     private final Collection<? extends GrantedAuthority> authorities; // Lista de permissões ou roles do usuário.
 
     public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.username = username;
-        this.password = password;
+        this.nomeUsuario = username;
+        this.senha = password;
         this.authorities = authorities; // Define as permissões ou roles do usuário.
     }
 
@@ -27,12 +27,12 @@ public class CustomUserDetails implements UserDetails { // userDeatails a gente 
 
     @Override
     public String getPassword() {
-        return password;
+        return senha;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return nomeUsuario;
     }
 
     @Override
